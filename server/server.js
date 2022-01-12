@@ -5,6 +5,8 @@ const path = require("path");
 const { compare, hash } = require("./bc");
 const cookieSession = require("cookie-session");
 const db = require("./db");
+const cryptoRandomString = require("crypto-random-string");
+const { sendEmail } = require("./ses.js");
 
 app.use(
     cookieSession({
@@ -63,6 +65,64 @@ app.post("/register.json", (req, res) => {
                 });
         })
         .catch((err) => console.log("err in hash", err));
+});
+
+app.post("/login.json", (req, res) => {
+    db.compareFromUsersTable(req.body.email).then((userInput) => {
+        compare(req.body.password, userInput.rows[0].password)
+            .then((match) => {
+                console.log("do provided PW and db stored hash match?", match);
+                if (match) {
+                    req.session.userId = userInput.rows[0].id;
+                    console.log("---------User Logged-In---------");
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
+                }
+            })
+            .catch((err) => {
+                console.log("err in password", err);
+            });
+    });
+});
+
+app.post("/password/reset/start.json", (req, res) => {
+    db.compareFromUsersTable(req.body.email)
+        .then((userInput) => {
+            if (userInput.rows.length) {
+                console.log("---------User exists---------");
+                const secretCode = cryptoRandomString({
+                    length: 6,
+                });
+                db.addResetCode(secretCode, req.body.email).then(() => {
+                    res.json({ success: true });
+                });
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch((err) => {
+            console.log("err in email", err);
+        });
+});
+
+app.post("/password/reset/confirm.json", (req, res) => {
+    db.compareFromUsersTable(req.body.email).then((userInput) => {
+        compare(req.body.password, userInput.rows[0].password)
+            .then((match) => {
+                console.log("do provided PW and db stored hash match?", match);
+                if (match) {
+                    req.session.userId = userInput.rows[0].id;
+                    console.log("---------User Logged-In---------");
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
+                }
+            })
+            .catch((err) => {
+                console.log("err in password", err);
+            });
+    });
 });
 
 // any routes that we are adding where the client is requesting or sending over

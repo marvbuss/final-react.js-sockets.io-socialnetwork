@@ -1,42 +1,55 @@
 import { Component } from "react";
-import ProfilePic from "./profilePic";
+import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 
 export default class App extends Component {
     constructor() {
         super();
         this.state = {
-            uploaderIsVisible: true,
+            uploaderIsVisible: false,
+            name: "Alistair",
         };
-        this.toggleUploader = 
+        this.toggleUploader = this.toggleUploader.bind(this);
+        this.logNamePlusSomeOtherStuffAsWell =
+            this.logNamePlusSomeOtherStuffAsWell.bind(this);
+    }
+
+    componentDidMount() {
+        console.log("App component mounted");
+        // Make fetch request to get data for currently logged in user
+        // and store this data in the component state
     }
 
     toggleUploader() {
-        this.State({
-            this.setState({
-                uploaderIsVisible: !this.state.uploaderIsVisible
-            })
-        })
+        this.setState({
+            uploaderIsVisible: !this.state.uploaderIsVisible,
+        });
+    }
+
+    logNamePlusSomeOtherStuffAsWell(val) {
+        console.log(this.state.name + val);
     }
 
     render() {
         return (
             <>
-                <section>
+                <section className="cool-styles">
                     <img
-                        src="https://www.pngkey.com/png/detail/321-3219278_blink-182-logo-png.png"
-                        alt="logo"
-                        id="network-logo"
+                        src="https://alsimageuniverse.s3.amazonaws.com/jhHC3lw0fMcoDXJFxNpnk_6iFWpR92aG.png"
+                        alt="social network logo"
+                        id="homepage-logo"
                     />
-                    <h1>This app.js works</h1>
                     <ProfilePic
-                        first="Alistair"
+                        first={this.state.first}
                         last="Quinn"
-                        imageUrl="https://thumbs.dreamstime.com/b/sumatran-tiger-bamboo-dramatic-stare-42151058.jpg"
+                        imageUrl="https://i0.wp.com/mothersniche.com/wp-content/uploads/2013/03/medium_104314753.jpg"
+                        loggerFunc={this.logNamePlusSomeOtherStuffAsWell}
                     />
                 </section>
-                (this.state.uploaderIsVisible && <Uploader />
-                );
+                {this.state.uploaderIsVisible && <Uploader />}
+                <button onClick={this.toggleUploader}>
+                    Show or hide uploader
+                </button>
             </>
         );
     }

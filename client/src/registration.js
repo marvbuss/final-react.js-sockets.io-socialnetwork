@@ -40,7 +40,9 @@ export class Registration extends Component {
                 (data) => {
                     console.log("response data from /register.json:", data);
                     if (data.success == false) {
-                        this.setState({ error: "whoopsie" });
+                        this.setState({
+                            error: "Something went wrong. Please try again!",
+                        });
                     } else {
                         location.reload();
                     }
@@ -55,13 +57,15 @@ export class Registration extends Component {
                 console.log("err in fetch /register.json", err);
                 // we want to render an error state meaning we want to setState and pass to it
                 // an object containing an error property and some value
-                this.setState({ error: "whoopsie" });
+                this.setState({
+                    error: "Something went wrong. Please try again!",
+                });
             });
     }
     render() {
         return (
             <>
-                <h1>Registration :D</h1>
+                <h1>Registration</h1>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>{this.state.error}</h2>
                 )}
@@ -91,9 +95,6 @@ export class Registration extends Component {
                         type="password"
                         onChange={this.handleChange}
                     />
-                    {/* <button onClick={(e) => this.handleSubmit(e)}>
-                        Register
-                    </button> */}
                     <button onClick={this.handleSubmit}>Register</button>
                 </form>
             </>

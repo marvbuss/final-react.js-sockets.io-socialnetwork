@@ -16,7 +16,7 @@ if (process.env.DATABASE_URL) {
 console.log(`[db] connecting to:${database}`);
 
 module.exports.addUser = (firstName, lastName, emailAdress, userPassword) => {
-    const q = `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING id`;
+    const q = `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING id;`;
     const params = [firstName, lastName, emailAdress, userPassword];
     return db.query(q, params);
 };
@@ -28,13 +28,19 @@ module.exports.compareFromUsersTable = (emailAddress) => {
 };
 
 module.exports.addResetCode = (resetCode, emailAdress) => {
-    const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) RETURNING code`;
+    const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $1, created_at = CURRENT_TIMESTAMP RETURNING code`;
     const params = [resetCode, emailAdress];
     return db.query(q, params);
 };
 
-module.exports.compareResetCode = (resetCode) => {
-    const q = `SELECT * FROM users WHERE code=$1`;
-    const params = [resetCode];
+module.exports.compareResetCode = (emailAdress) => {
+    const q = `SELECT code FROM password_reset_codes WHERE email=$1 AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
+    const params = [emailAdress];
+    return db.query(q, params);
+};
+
+module.exports.updateUsersPassword = (email, password) => {
+    const q = `UPDATE users SET password = $2 WHERE email = $1;`;
+    const params = [email, password];
     return db.query(q, params);
 };

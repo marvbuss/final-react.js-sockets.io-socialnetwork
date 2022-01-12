@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class ResetPassword extends Component {
     constructor(props) {
@@ -41,6 +42,12 @@ export class ResetPassword extends Component {
                             type="number"
                             onChange={this.handleChange}
                         />
+                        <input
+                            name="password"
+                            placeholder="New Password"
+                            type="number"
+                            onChange={this.handleChange}
+                        />
                         <button onClick={this.handleResetConfirm}>
                             Confirm
                         </button>
@@ -48,7 +55,12 @@ export class ResetPassword extends Component {
                 </>
             );
         } else if (this.state.stage === 3) {
-            return <div>Success</div>;
+            return (
+                <>
+                    <h1>Success</h1>
+                    <Link to="/login">Click here to Log in!</Link>
+                </>
+            );
         }
     }
 

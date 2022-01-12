@@ -11,6 +11,6 @@ DROP TABLE IF EXISTS users, password_reset_codes;
 
     CREATE TABLE password_reset_codes(
       code VARCHAR(255),
-      email VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );

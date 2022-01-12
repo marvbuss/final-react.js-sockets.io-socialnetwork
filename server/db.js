@@ -28,7 +28,7 @@ module.exports.compareFromUsersTable = (emailAddress) => {
 };
 
 module.exports.addResetCode = (resetCode, emailAdress) => {
-    const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $1, created_at = CURRENT_TIMESTAMP RETURNING code`;
+    const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $1`;
     const params = [resetCode, emailAdress];
     return db.query(q, params);
 };
@@ -40,7 +40,7 @@ module.exports.compareResetCode = (emailAdress) => {
 };
 
 module.exports.updateUsersPassword = (email, password) => {
-    const q = `UPDATE users SET password = $2 WHERE email = $1;`;
+    const q = `UPDATE users SET password = $2 WHERE email=$1`;
     const params = [email, password];
     return db.query(q, params);
 };

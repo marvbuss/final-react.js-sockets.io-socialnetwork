@@ -38,14 +38,14 @@ export class ResetPassword extends Component {
                     <form>
                         <input
                             name="resetCode"
-                            placeholder="123456"
-                            type="number"
+                            placeholder="123ABC"
+                            type="text"
                             onChange={this.handleChange}
                         />
                         <input
                             name="password"
                             placeholder="New Password"
-                            type="number"
+                            type="text"
                             onChange={this.handleChange}
                         />
                         <button onClick={this.handleResetConfirm}>

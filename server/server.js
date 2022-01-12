@@ -73,6 +73,7 @@ app.post("/password/reset/start.json", (req, res) => {
             if (userInput.rows.length) {
                 console.log("---------User exists---------");
                 const secretCode = cryptoRandomString({ length: 6 });
+                console.log(secretCode);
                 db.addResetCode(secretCode, req.body.email).then(() => {
                     console.log("---------Secret Code generated---------");
                     sendEmail(
@@ -96,16 +97,16 @@ app.post("/password/reset/confirm.json", (req, res) => {
     db.compareResetCode(req.body.email)
         .then(({ rows }) => {
             if (req.body.resetCode == rows[0].code) {
-                hash(req.body.password);
+                hash(req.body.password)
+                    .then((hashedPw) => {
+                        db.updateUsersPassword(req.body.email, hashedPw);
+                    })
+                    .then(() => {
+                        res.json({ success: true });
+                    });
             } else {
                 res.json({ success: false });
             }
-        })
-        .then((hashedPw) => {
-            db.updateUsersPassword(req.body.email, hashedPw);
-        })
-        .then(() => {
-            res.json({ success: true });
         })
         .catch((err) => {
             console.log("err in /password/reset/confirm.json", err);

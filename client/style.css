@@ -1,3 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: ghostwhite;
+    background-color: #bfdbae;
+    font-family: Monopoly;
+}
+
+button {
+    background-color: #d7baaa;
+    color: white;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+.app-start {
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo-wrapper {
+    font-size: 10rem;
+    background-color: #c70000;
+    border: 1rem solid white;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin: 1rem;
+}
+
+#logo-wrapper-app-start {
+    height: 100px;
+    font-size: 5rem;
+    background-color: #c70000;
+    color: white;
+    padding: 0.5rem;
+    border: 0.5rem solid white;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+#navbar-avatar {
+    height: 100px;
+    border: 0.125rem solid #c70000;
+    margin: 0.5rem;
 }

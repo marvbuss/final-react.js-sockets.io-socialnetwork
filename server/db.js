@@ -15,6 +15,8 @@ if (process.env.DATABASE_URL) {
 
 console.log(`[db] connecting to:${database}`);
 
+// ---------------------------------------------------- users queries-------------------------------------------------------------- /
+
 module.exports.addUser = (firstName, lastName, emailAdress, userPassword) => {
     const q = `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING id;`;
     const params = [firstName, lastName, emailAdress, userPassword];
@@ -26,6 +28,14 @@ module.exports.compareFromUsersTable = (emailAddress) => {
     const params = [emailAddress];
     return db.query(q, params);
 };
+
+module.exports.getUserInfoById = (user_id) => {
+    const q = `SELECT first, last, email, created_at FROM users WHERE id=$1`;
+    const params = [user_id];
+    return db.query(q, params);
+};
+
+// ----------------------------------------------------password_reset_codes queries-------------------------------------------------------------- /
 
 module.exports.addResetCode = (resetCode, emailAdress) => {
     const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $1`;

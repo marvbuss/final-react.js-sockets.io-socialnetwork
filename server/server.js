@@ -114,6 +114,17 @@ app.post("/password/reset/confirm.json", (req, res) => {
         });
 });
 
+app.get("/user", (req, res) => {
+    db.getUserInfoById(req.session.userId)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => {
+            console.log("err in /user", err);
+            res.json({ success: false });
+        });
+});
+
 // any routes that we are adding where the client is requesting or sending over
 // data to store in the database have to go ABOVE the star route below!!!!
 app.get("*", function (req, res) {

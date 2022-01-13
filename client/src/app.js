@@ -7,7 +7,6 @@ export default class App extends Component {
         super();
         this.state = {
             uploaderIsVisible: false,
-            name: "Alistair",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNamePlusSomeOtherStuffAsWell =
@@ -16,8 +15,18 @@ export default class App extends Component {
 
     componentDidMount() {
         console.log("App component mounted");
-        // Make fetch request to get data for currently logged in user
-        // and store this data in the component state
+        fetch("/user")
+            .then((data) => data.json())
+            .then((data) => {
+                const { first, last, email, created_at } = data;
+                this.setState({ first, last, email, created_at });
+            })
+            .catch((err) => {
+                console.log("err in fetch /user", err);
+                this.setState({
+                    error: "Something went wrong. Please try again!",
+                });
+            });
     }
 
     toggleUploader() {
@@ -27,23 +36,20 @@ export default class App extends Component {
     }
 
     logNamePlusSomeOtherStuffAsWell(val) {
-        console.log(this.state.name + val);
+        this.setState({
+            val,
+        });
     }
 
     render() {
         return (
             <>
-                <section className="cool-styles">
-                    <img
-                        src="https://alsimageuniverse.s3.amazonaws.com/jhHC3lw0fMcoDXJFxNpnk_6iFWpR92aG.png"
-                        alt="social network logo"
-                        id="homepage-logo"
-                    />
+                <section className="app-start">
+                    <div id="logo-wrapper-app-start">MONOPOLY</div>
                     <ProfilePic
                         first={this.state.first}
-                        last="Quinn"
-                        imageUrl="https://i0.wp.com/mothersniche.com/wp-content/uploads/2013/03/medium_104314753.jpg"
-                        loggerFunc={this.logNamePlusSomeOtherStuffAsWell}
+                        last={this.state.last}
+                        toggleFunc={this.toggleUploader}
                     />
                 </section>
                 {this.state.uploaderIsVisible && <Uploader />}

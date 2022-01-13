@@ -9,8 +9,7 @@ export default class App extends Component {
             uploaderIsVisible: false,
         };
         this.toggleUploader = this.toggleUploader.bind(this);
-        this.logNamePlusSomeOtherStuffAsWell =
-            this.logNamePlusSomeOtherStuffAsWell.bind(this);
+        this.imageUrlCallback = this.imageUrlCallback.bind(this);
     }
 
     componentDidMount() {
@@ -18,8 +17,8 @@ export default class App extends Component {
         fetch("/user")
             .then((data) => data.json())
             .then((data) => {
-                const { first, last, email, created_at } = data;
-                this.setState({ first, last, email, created_at });
+                const { first, last, email, image_url, created_at } = data;
+                this.setState({ first, last, email, image_url, created_at });
             })
             .catch((err) => {
                 console.log("err in fetch /user", err);
@@ -35,9 +34,9 @@ export default class App extends Component {
         });
     }
 
-    logNamePlusSomeOtherStuffAsWell(val) {
+    imageUrlCallback(val) {
         this.setState({
-            val,
+            image_url: val,
         });
     }
 
@@ -49,13 +48,13 @@ export default class App extends Component {
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
+                        imageUrl={this.state.image_url}
                         toggleFunc={this.toggleUploader}
                     />
                 </section>
-                {this.state.uploaderIsVisible && <Uploader />}
-                <button onClick={this.toggleUploader}>
-                    Show or hide uploader
-                </button>
+                {this.state.uploaderIsVisible && (
+                    <Uploader parentCallback={this.imageUrlCallback} />
+                )}
             </>
         );
     }

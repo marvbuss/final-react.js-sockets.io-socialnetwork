@@ -7,6 +7,30 @@ const cookieSession = require("cookie-session");
 const db = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { sendEmail } = require("./ses.js");
+const s3 = require("./s3.js");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, path.join(__dirname, "uploads"));
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
+const s3LocationDomain =
+    "https://onionxsocialnetworkxmonopoly.s3.us-east-1.amazonaws.com/";
 
 app.use(
     cookieSession({
@@ -123,6 +147,26 @@ app.get("/user", (req, res) => {
             console.log("err in /user", err);
             res.json({ success: false });
         });
+});
+
+app.post("/upload.json", uploader.single("file"), s3.upload, (req, res) => {
+    console.log("*****************");
+    console.log("POST /upload.json Route");
+    console.log("*****************");
+    console.log("file:", req.file);
+    console.log("input:", req.body);
+    console.log("our file will be reachable at its bucket's url");
+    console.log("with the addition of the filename");
+    if (req.file) {
+        const s3Url = `${s3LocationDomain}${req.file.filename}`;
+        db.postImages(s3Url, req.session.userId)
+            .then(({ rows }) => {
+                res.json(rows[0].image_url);
+            })
+            .catch(console.log);
+    } else {
+        res.json({ success: false });
+    }
 });
 
 // any routes that we are adding where the client is requesting or sending over

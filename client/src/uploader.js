@@ -35,18 +35,22 @@ export default class uploader extends Component {
     render() {
         return (
             <>
-                <h1>Change Profile Image</h1>
-                <form>
-                    <input
-                        type="file"
-                        name="file"
-                        accept="image/*"
-                        onChange={this.handleChange}
-                    />
-                    <button onClick={(e) => this.clickHandler(e)}>
-                        Submit
-                    </button>
-                </form>
+                <div id="modal">
+                    <div id="modal-container">
+                        <h1>Change Profile Image</h1>
+                        <form>
+                            <input
+                                type="file"
+                                name="file"
+                                accept="image/*"
+                                onChange={this.handleChange}
+                            />
+                            <button onClick={(e) => this.clickHandler(e)}>
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </>
         );
     }

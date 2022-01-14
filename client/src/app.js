@@ -2,6 +2,8 @@ import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import { Search } from "./search";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor() {
@@ -58,29 +60,38 @@ export default class App extends Component {
     render() {
         return (
             <>
-                <section className="app-start">
-                    <div id="logo-wrapper-app-start">MONOPOLY</div>
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.image_url}
-                        cssClassName="navbar-avatar"
-                        toggleFunc={this.toggleUploader}
-                    />
-                </section>
-                <section className="profile-section">
-                    <Profile
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.image_url}
-                        toggleFunc={this.toggleUploader}
-                        bio={this.state.bio}
-                        updateBio={this.updateBio}
-                    />
-                </section>
-                {this.state.uploaderIsVisible && (
-                    <Uploader parentCallback={this.imageUrlCallback} />
-                )}
+                <BrowserRouter>
+                    <section className="app-start">
+                        <div id="logo-wrapper-app-start">MONOPOLY</div>
+                        <Link to="/">Profile</Link>
+                        <Link to="/search">Find people</Link>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.image_url}
+                            cssClassName="navbar-avatar"
+                            toggleFunc={this.toggleUploader}
+                        />
+                    </section>
+                    <Route exact path="/">
+                        <section className="profile-section">
+                            <Profile
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.image_url}
+                                toggleFunc={this.toggleUploader}
+                                bio={this.state.bio}
+                                updateBio={this.updateBio}
+                            />
+                        </section>
+                    </Route>
+                    <Route path="/search">
+                        <Search userId={this.state.id} />
+                    </Route>
+                    {this.state.uploaderIsVisible && (
+                        <Uploader parentCallback={this.imageUrlCallback} />
+                    )}
+                </BrowserRouter>
             </>
         );
     }

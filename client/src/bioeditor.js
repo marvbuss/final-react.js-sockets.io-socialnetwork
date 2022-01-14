@@ -57,7 +57,7 @@ export default class BioEditor extends Component {
         return (
             <>
                 <div className="bio">
-                    <h2>You're Profile Bio:</h2>
+                    <h2>Your Profile Bio:</h2>
                     {this.state.showMode == false && (
                         <>
                             <p>{this.props.bio}</p>

@@ -7,7 +7,6 @@ import Logo from "./logo";
 export default function Welcome() {
     return (
         <div id="welcome">
-            <h1>Welcome!</h1>
             <Logo />
             <BrowserRouter>
                 <div>

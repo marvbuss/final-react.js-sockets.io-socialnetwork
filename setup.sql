@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS users, password_reset_codes;
       email VARCHAR(255) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
       image_url text,
+      bio text,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 

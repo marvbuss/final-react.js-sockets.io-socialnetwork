@@ -16,6 +16,10 @@ h1 {
     font-size: 5rem;
 }
 
+#welcome {
+    text-align: center;
+}
+
 .app-start {
     display: flex;
     justify-content: space-between;
@@ -42,10 +46,21 @@ h1 {
     margin: 0.5rem;
 }
 
-#navbar-avatar {
+.navbar-avatar {
     height: 100px;
     border: 0.125rem solid #c70000;
     margin: 0.5rem;
+}
+
+.profile-avatar {
+    height: 200px;
+    border: 0.125rem solid #c70000;
+}
+
+.profile-section {
+    display: flex;
+    margin: 1rem;
+    gap: 2rem;
 }
 
 #modal {

@@ -30,7 +30,7 @@ module.exports.compareFromUsersTable = (emailAddress) => {
 };
 
 module.exports.getUserInfoById = (user_id) => {
-    const q = `SELECT first, last, email, image_url, created_at FROM users WHERE id=$1`;
+    const q = `SELECT first, last, email, image_url, bio, created_at FROM users WHERE id=$1`;
     const params = [user_id];
     return db.query(q, params);
 };
@@ -38,6 +38,12 @@ module.exports.getUserInfoById = (user_id) => {
 module.exports.postImages = (postUrl, postUserId) => {
     const q = `UPDATE users SET image_url = $1 WHERE id = $2 RETURNING image_url`;
     const params = [postUrl, postUserId];
+    return db.query(q, params);
+};
+
+module.exports.postBio = (postBio, postUserId) => {
+    const q = `UPDATE users SET bio = $1 WHERE id = $2 RETURNING bio`;
+    const params = [postBio, postUserId];
     return db.query(q, params);
 };
 

@@ -1,4 +1,10 @@
-export default function ProfilePic({ last, first, imageUrl, toggleFunc }) {
+export default function ProfilePic({
+    last,
+    first,
+    imageUrl,
+    cssClassName,
+    toggleFunc,
+}) {
     imageUrl = imageUrl || "default.png";
 
     return (
@@ -6,7 +12,7 @@ export default function ProfilePic({ last, first, imageUrl, toggleFunc }) {
             onClick={() => toggleFunc()}
             src={imageUrl}
             alt={`${first} ${last}`}
-            id="navbar-avatar"
+            className={cssClassName}
         />
     );
 }

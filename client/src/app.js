@@ -1,6 +1,7 @@
 import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
+import Profile from "./profile";
 
 export default class App extends Component {
     constructor() {
@@ -10,6 +11,7 @@ export default class App extends Component {
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.imageUrlCallback = this.imageUrlCallback.bind(this);
+        this.updateBio = this.updateBio.bind(this);
     }
 
     componentDidMount() {
@@ -17,8 +19,15 @@ export default class App extends Component {
         fetch("/user")
             .then((data) => data.json())
             .then((data) => {
-                const { first, last, email, image_url, created_at } = data;
-                this.setState({ first, last, email, image_url, created_at });
+                const { first, last, email, image_url, bio, created_at } = data;
+                this.setState({
+                    first,
+                    last,
+                    email,
+                    image_url,
+                    bio,
+                    created_at,
+                });
             })
             .catch((err) => {
                 console.log("err in fetch /user", err);
@@ -40,6 +49,12 @@ export default class App extends Component {
         });
     }
 
+    updateBio(val) {
+        this.setState({
+            bio: val,
+        });
+    }
+
     render() {
         return (
             <>
@@ -49,7 +64,18 @@ export default class App extends Component {
                         first={this.state.first}
                         last={this.state.last}
                         imageUrl={this.state.image_url}
+                        cssClassName="navbar-avatar"
                         toggleFunc={this.toggleUploader}
+                    />
+                </section>
+                <section className="profile-section">
+                    <Profile
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.image_url}
+                        toggleFunc={this.toggleUploader}
+                        bio={this.state.bio}
+                        updateBio={this.updateBio}
                     />
                 </section>
                 {this.state.uploaderIsVisible && (

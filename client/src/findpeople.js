@@ -12,7 +12,6 @@ export function FindPeople() {
             fetch(`users/latest`)
                 .then((latestUsers) => latestUsers.json())
                 .then((latestUsers) => {
-                    console.log(latestUsers);
                     setShowUser(true);
                     setUsers(latestUsers);
                 })

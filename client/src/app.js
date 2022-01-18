@@ -2,6 +2,7 @@ import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./findpeople";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -87,6 +88,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/users">
                         <FindPeople userId={this.state.id} />
+                    </Route>
+                    <Route path="/user/:id">
+                        <OtherProfile />
                     </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader parentCallback={this.imageUrlCallback} />

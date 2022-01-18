@@ -149,6 +149,24 @@ app.get("/user", (req, res) => {
         });
 });
 
+app.get("/users/latest", (req, res) => {
+    console.log("in /users/latest route");
+    db.showLatestUsers()
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => console.log("err in /users/latest ", err));
+});
+
+app.get(`/users/:search`, (req, res) => {
+    const search = req.params.search;
+    console.log("in /users/:search route");
+    db.getMatchingUsersList(search)
+        .then(({ rows }) => res.json(rows))
+        .catch((err) => console.log("err in /users/:search: ", err));
+});
+
 app.post("/upload.json", uploader.single("file"), s3.upload, (req, res) => {
     console.log("*****************");
     console.log("POST /upload.json Route");

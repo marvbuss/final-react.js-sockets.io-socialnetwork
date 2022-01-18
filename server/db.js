@@ -47,6 +47,17 @@ module.exports.postBio = (postBio, postUserId) => {
     return db.query(q, params);
 };
 
+module.exports.getMatchingUsersList = (val) => {
+    const q = `SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1`;
+    const params = [val + "%"];
+    return db.query(q, params);
+};
+
+module.exports.showLatestUsers = () => {
+    const q = `SELECT * FROM users ORDER BY created_at DESC LIMIT 3`;
+    return db.query(q);
+};
+
 // ----------------------------------------------------password_reset_codes queries-------------------------------------------------------------- /
 
 module.exports.addResetCode = (resetCode, emailAdress) => {

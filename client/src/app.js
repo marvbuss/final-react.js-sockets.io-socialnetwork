@@ -2,7 +2,7 @@ import { Component } from "react";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
-import { Search } from "./search";
+import { FindPeople } from "./findpeople";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -64,7 +64,7 @@ export default class App extends Component {
                     <section className="app-start">
                         <div id="logo-wrapper-app-start">MONOPOLY</div>
                         <Link to="/">Profile</Link>
-                        <Link to="/search">Find people</Link>
+                        <Link to="/users">Find people</Link>
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}
@@ -85,8 +85,8 @@ export default class App extends Component {
                             />
                         </section>
                     </Route>
-                    <Route path="/search">
-                        <Search userId={this.state.id} />
+                    <Route path="/users">
+                        <FindPeople userId={this.state.id} />
                     </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader parentCallback={this.imageUrlCallback} />

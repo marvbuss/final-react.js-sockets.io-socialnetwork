@@ -1,5 +1,6 @@
 import { useParams, useHistory } from "react-router";
 import { useState, useEffect } from "react";
+import { FriendButton } from "./friendbutton";
 
 export function OtherProfile() {
     const { id } = useParams();
@@ -35,6 +36,7 @@ export function OtherProfile() {
                         {user.first} {user.last}
                     </p>
                     <p>{user.bio}</p>
+                    <FriendButton userId={id} />
                 </div>
             )}
             {error && <p>{errorMessage}</p>}

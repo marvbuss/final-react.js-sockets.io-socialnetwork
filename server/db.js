@@ -77,3 +77,11 @@ module.exports.updateUsersPassword = (email, password) => {
     const params = [email, password];
     return db.query(q, params);
 };
+
+// ----------------------------------------------------friendships queries-------------------------------------------------------------- /
+
+module.exports.checkFriendshipStatus = (recipient_id, sender_id) => {
+    const q = `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [recipient_id, sender_id];
+    return db.query(q, params);
+};

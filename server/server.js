@@ -149,11 +149,56 @@ app.get("/user", (req, res) => {
         });
 });
 
+app.get("/api/user/:id", function (req, res) {
+    const id = req.params.id;
+    if (id == req.session.userId) {
+        console.log("err in /api/user/:id -> same userID");
+        res.json({ success: false });
+    } else {
+        db.getUserInfoById(id)
+            .then(({ rows }) => {
+                res.json(rows[0]);
+            })
+            .catch((err) => {
+                console.log("err in /api/user/:id", err);
+                res.json({ success: false });
+            });
+    }
+});
+
+app.get("/api/friendship/:id", function (req, res) {
+    const userId = req.session.userId;
+    const id = req.params.id;
+    db.checkFriendshipStatus(userId, id)
+        .then(({ rows }) => {
+            if (rows[0] == []) {
+                return res.json({ friendship: false });
+            } else if (rows[0].accepted == true) {
+                return res.json({ friendship: true });
+            } else if (
+                rows[0].accepted == false &&
+                rows[0].recipient_id == userId
+            ) {
+                return res.json({
+                    friendship: false,
+                    friendshipStatus: "accept",
+                });
+            } else {
+                return res.json({
+                    friendship: false,
+                    friendshipStatus: "cancel",
+                });
+            }
+        })
+        .catch((err) => {
+            console.log("/api/friendship/:id", err);
+            res.json({ success: false });
+        });
+});
+
 app.get("/users/latest", (req, res) => {
-    console.log("in /users/latest route");
     db.showLatestUsers()
         .then(({ rows }) => {
-            console.log(rows);
             res.json(rows);
         })
         .catch((err) => console.log("err in /users/latest ", err));
@@ -161,7 +206,6 @@ app.get("/users/latest", (req, res) => {
 
 app.get(`/users/:search`, (req, res) => {
     const search = req.params.search;
-    console.log("in /users/:search route");
     db.getMatchingUsersList(search)
         .then(({ rows }) => res.json(rows))
         .catch((err) => console.log("err in /users/:search: ", err));

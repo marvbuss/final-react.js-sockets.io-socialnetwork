@@ -36,7 +36,7 @@ export function OtherProfile() {
                         {user.first} {user.last}
                     </p>
                     <p>{user.bio}</p>
-                    <FriendButton userId={id} />
+                    <FriendButton otherProfileUserId={id} />
                 </div>
             )}
             {error && <p>{errorMessage}</p>}

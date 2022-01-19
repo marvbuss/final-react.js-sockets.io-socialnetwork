@@ -56,12 +56,9 @@ app.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
     hash(password)
         .then((hashedPw) => {
-            console.log("hashedPWd :", hashedPw);
             db.addUser(first, last, email, hashedPw)
                 .then((row) => {
                     req.session.userId = row.rows[0].id;
-                    console.log(req.session.userId);
-                    console.log("---------User registred---------");
                     res.json({ success: true });
                 })
                 .catch((err) => {
@@ -149,13 +146,13 @@ app.get("/user", (req, res) => {
         });
 });
 
-app.get("/api/user/:id", function (req, res) {
-    const id = req.params.id;
-    if (id == req.session.userId) {
+app.get(`/api/user/:id`, function (req, res) {
+    const loggedInId = req.params.id;
+    if (loggedInId == req.session.userId) {
         console.log("err in /api/user/:id -> same userID");
         res.json({ success: false });
     } else {
-        db.getUserInfoById(id)
+        db.getUserInfoById(loggedInId)
             .then(({ rows }) => {
                 res.json(rows[0]);
             })
@@ -166,34 +163,48 @@ app.get("/api/user/:id", function (req, res) {
     }
 });
 
-app.get("/api/friendship/:id", function (req, res) {
-    const userId = req.session.userId;
-    const id = req.params.id;
-    db.checkFriendshipStatus(userId, id)
+app.get(`/api/friendship/:id`, function (req, res) {
+    const loggedInId = req.session.userId;
+    const viewedId = req.params.id;
+    db.checkFriendshipStatus(loggedInId, viewedId)
         .then(({ rows }) => {
-            if (rows[0] == []) {
-                return res.json({ friendship: false });
-            } else if (rows[0].accepted == true) {
-                return res.json({ friendship: true });
-            } else if (
-                rows[0].accepted == false &&
-                rows[0].recipient_id == userId
-            ) {
-                return res.json({
-                    friendship: false,
-                    friendshipStatus: "accept",
-                });
+            if (rows.length === 0) {
+                res.json("Send Friend Request");
+            } else if (rows[0].accepted) {
+                res.json("Unfriend");
+            } else if (rows[0].sender_id == loggedInId) {
+                res.json("Cancel Friend Request");
             } else {
-                return res.json({
-                    friendship: false,
-                    friendshipStatus: "cancel",
-                });
+                res.json("Accept Friend Request");
             }
         })
         .catch((err) => {
-            console.log("/api/friendship/:id", err);
+            console.log("err in /api/friendship/:id", err);
             res.json({ success: false });
         });
+});
+
+app.post(`/api/friendship/status/:id`, (req, res) => {
+    const logedInId = req.session.userId;
+    const viewedId = req.params.id;
+
+    if (req.body.btnText === "Send Friend Request") {
+        db.startFriendship(logedInId, viewedId)
+            .then(res.json("Cancel Friend Request"))
+            .catch((err) => console.log(err));
+    } else if (req.body.btnText === "Cancel Friend Request") {
+        db.endFriendship(logedInId, viewedId)
+            .then(res.json("Send Friend Request"))
+            .catch((err) => console.log(err));
+    } else if (req.body.btnText === "Accept Friend Request") {
+        db.updateFriendshipStatus(logedInId, viewedId)
+            .then(res.json("Unfriend"))
+            .catch((err) => console.log(err));
+    } else {
+        db.endFriendship(logedInId, viewedId)
+            .then(res.json("Send Friend Request"))
+            .catch((err) => console.log(err));
+    }
 });
 
 app.get("/users/latest", (req, res) => {

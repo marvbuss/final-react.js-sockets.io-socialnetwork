@@ -98,8 +98,8 @@ module.exports.endFriendship = (recipient_id, sender_id) => {
     return db.query(q, params);
 };
 
-module.exports.startFriendship = (recipient_id, sender_id) => {
-    const q = `INSERT INTO friendships (sender_id, recipient_id) VALUES ($2, $1) RETURNING sender_id, recipient_id, accepted`;
-    const params = [recipient_id, sender_id];
+module.exports.startFriendship = (sender_id, recipient_id) => {
+    const q = `INSERT INTO friendships (sender_id, recipient_id) VALUES ($1, $2)`;
+    const params = [sender_id, recipient_id];
     return db.query(q, params);
 };

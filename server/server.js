@@ -185,23 +185,23 @@ app.get(`/api/friendship/:id`, function (req, res) {
 });
 
 app.post(`/api/friendship/status/:id`, (req, res) => {
-    const logedInId = req.session.userId;
+    const loggedInId = req.session.userId;
     const viewedId = req.params.id;
 
     if (req.body.btnText === "Send Friend Request") {
-        db.startFriendship(logedInId, viewedId)
+        db.startFriendship(loggedInId, viewedId)
             .then(res.json("Cancel Friend Request"))
             .catch((err) => console.log(err));
     } else if (req.body.btnText === "Cancel Friend Request") {
-        db.endFriendship(logedInId, viewedId)
+        db.endFriendship(loggedInId, viewedId)
             .then(res.json("Send Friend Request"))
             .catch((err) => console.log(err));
     } else if (req.body.btnText === "Accept Friend Request") {
-        db.updateFriendshipStatus(logedInId, viewedId)
+        db.updateFriendshipStatus(loggedInId, viewedId)
             .then(res.json("Unfriend"))
             .catch((err) => console.log(err));
     } else {
-        db.endFriendship(logedInId, viewedId)
+        db.endFriendship(loggedInId, viewedId)
             .then(res.json("Send Friend Request"))
             .catch((err) => console.log(err));
     }

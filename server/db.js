@@ -3,7 +3,8 @@ const database = "onion-socialnetwork";
 const username = "postgres";
 const password = "postgres";
 
-// ------------------------------- LINE OF COMMUNICATION to DATABASE --------------------------------
+// ------------------------------- LINE OF COMMUNICATION to DATABASE -------------------------------- //
+
 let db;
 if (process.env.DATABASE_URL) {
     db = spicedPg(process.env.DATABASE_URL);
@@ -15,7 +16,7 @@ if (process.env.DATABASE_URL) {
 
 console.log(`[db] connecting to:${database}`);
 
-// ---------------------------------------------------- users queries-------------------------------------------------------------- /
+// ---------------------------------------------------- users queries-------------------------------------------------------------- //
 
 module.exports.addUser = (firstName, lastName, emailAdress, userPassword) => {
     const q = `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING id;`;
@@ -64,7 +65,7 @@ module.exports.updateUsersPassword = (email, password) => {
     return db.query(q, params);
 };
 
-// ----------------------------------------------------password_reset_codes queries-------------------------------------------------------------- /
+// ----------------------------------------------------password_reset_codes queries-------------------------------------------------------------- //
 
 module.exports.addResetCode = (resetCode, emailAdress) => {
     const q = `INSERT INTO password_reset_codes (code, email) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $1`;
@@ -78,7 +79,7 @@ module.exports.compareResetCode = (emailAdress) => {
     return db.query(q, params);
 };
 
-// ----------------------------------------------------friendships queries-------------------------------------------------------------- /
+// ----------------------------------------------------friendships queries-------------------------------------------------------------- //
 
 module.exports.checkFriendshipStatus = (recipient_id, sender_id) => {
     const q = `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;

@@ -4,6 +4,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./findpeople";
+import { FriendsAndWannabees } from "./friends-and-wannabees";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -65,6 +66,7 @@ export default class App extends Component {
                     <section className="app-start">
                         <div id="logo-wrapper-app-start">MONOPOLY</div>
                         <Link to="/">Profile</Link>
+                        <Link to="/friends-and-wannabees">Friends</Link>
                         <Link to="/users">Find people</Link>
                         <ProfilePic
                             first={this.state.first}
@@ -85,6 +87,9 @@ export default class App extends Component {
                                 updateBio={this.updateBio}
                             />
                         </section>
+                    </Route>
+                    <Route path="friends-and-wannabees">
+                        <FriendsAndWannabees />
                     </Route>
                     <Route path="/users">
                         <FindPeople userId={this.state.id} />

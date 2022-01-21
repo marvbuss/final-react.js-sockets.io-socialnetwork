@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { makeFriend } from "./redux/friends-and-wannabees/slice.js";
+import { useEffect } from "react";
+import {
+    makeFriend,
+    makeUnfriend,
+    receiveFriendsAndWannabees,
+} from "./redux/friends-and-wannabees/slice.js";
 
 export function FriendsAndWannabees() {
     // Get access to the dispatch function
@@ -11,21 +16,65 @@ export function FriendsAndWannabees() {
     );
 
     // Select the Friends from the state
-    // ...
+    const friends = useSelector((state) =>
+        state.friendsAndWannabees.filter((friendship) => friendship.accepted)
+    );
 
     // Get all friends and wannabees when the component mounts
     useEffect(() => {
+        fetch(`/friends-and-wannabees.json`)
+            .then((data) => data.json())
+            .then((data) => {
+                console.log(data);
+                dispatch(receiveFriendsAndWannabees(data));
+            })
+            .catch((err) => {
+                console.log("err", err);
+            });
+
         // STEP 1: Make GET request to fetch friends and wannabees
         // STEP 2: dispatch action to populate the redux state
-        dispatch(receiveFriendsAndWannabees(data));
     }, []);
 
     const handleAccept = (id) => {
         // Step 1: Make a POST request to update the DB
+        console.log("handleAccept", id);
 
+        fetch(`/friendhip/accept`, {
+            method: "POST",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.success) {
+                    const action = dispatch(makeFriend(id));
+                    dispatch(action);
+                }
+            });
         // Step 2: Dispatch an action to update the Redux store
-        dispatch(makeFriend(id));
     };
+
+    const handleUnfriend = (id) => {
+        // Step 1: Make a POST request to update the DB
+        console.log("handleUnfriend", id);
+
+        fetch(`/friendhip/end`, {
+            method: "POST",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.success) {
+                    const action = dispatch(makeUnfriend(id));
+                    dispatch(action);
+                }
+            });
+        // Step 2: Dispatch an action to update the Redux store
+    };
+
+    if (!wannabees && !friends) {
+        return null;
+    }
 
     return (
         <>
@@ -39,7 +88,15 @@ export function FriendsAndWannabees() {
                 );
             })}
 
-            {/*Display friends*/}
+            {friends.map((friend) => {
+                return (
+                    <div key={friend.id}>
+                        <button onClick={() => handleUnfriend(friend.id)}>
+                            Unfriend
+                        </button>
+                    </div>
+                );
+            })}
         </>
     );
 }

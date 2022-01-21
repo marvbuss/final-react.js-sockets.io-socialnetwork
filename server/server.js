@@ -207,12 +207,40 @@ app.post(`/api/friendship/status/:id`, (req, res) => {
     }
 });
 
+app.get("/friends-and-wannabees.json", (req, res) => {
+    console.log("Im here you wannabee");
+    db.getFriendsAndWannabees(req.session.userId)
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch((err) => console.log("err in /friends-and-wannabees", err));
+});
+
+app.post("/friendhip/accept", (req, res) => {
+    const loggedInId = req.session.userId;
+    db.startFriendship(loggedInId)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => console.log("err in /friendhip/accept", err));
+});
+
+app.post("/friendship/end", (req, res) => {
+    const loggedInId = req.session.userId;
+    db.endFriendship(loggedInId)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => console.log("err in /friendship/end", err));
+});
+
 app.get("/users/latest", (req, res) => {
     db.showLatestUsers()
         .then(({ rows }) => {
             res.json(rows);
         })
-        .catch((err) => console.log("err in /users/latest ", err));
+        .catch((err) => console.log("err in /users/latest", err));
 });
 
 app.get(`/users/:search`, (req, res) => {

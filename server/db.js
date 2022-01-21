@@ -104,3 +104,9 @@ module.exports.startFriendship = (sender_id, recipient_id) => {
     const params = [sender_id, recipient_id];
     return db.query(q, params);
 };
+
+module.exports.getFriendsAndWannabees = (id) => {
+    const q = `SELECT users.id, first, last, image_url, accepted FROM friendships JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR (accepted = TRUE AND recipient_id = $1 AND sender_id = users.id) OR (accepted = TRUE AND sender_id = $1 AND recipient_id = users.id)`;
+    const params = [id];
+    return db.query(q, params);
+};

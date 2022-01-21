@@ -4,7 +4,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./findpeople";
-import { FriendsAndWannabees } from "./friends-and-wannabees";
+import FriendsAndWannabees from "./friends-and-wannabees";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -88,7 +88,7 @@ export default class App extends Component {
                             />
                         </section>
                     </Route>
-                    <Route path="friends-and-wannabees">
+                    <Route path="/friends-and-wannabees">
                         <FriendsAndWannabees />
                     </Route>
                     <Route path="/users">

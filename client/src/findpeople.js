@@ -41,15 +41,14 @@ export function FindPeople() {
                 users.map((user) => (
                     <div key={user.id}>
                         <Link to={`/user/${user.id}`}>
+                            <p>
+                                {user.first} {user.last}
+                            </p>
                             <img
                                 src={user.image_url}
                                 className="navbar-avatar"
                             />
                         </Link>
-
-                        <p>
-                            {user.first} {user.last}
-                        </p>
                     </div>
                 ))}
             {showUser && <h3>Looking for someone?</h3>}
@@ -67,15 +66,14 @@ export function FindPeople() {
                 users.map((user) => (
                     <div key={user.id}>
                         <Link to={`/user/${user.id}`}>
+                            <p>
+                                {user.first} {user.last}
+                            </p>
                             <img
                                 src={user.image_url}
                                 className="navbar-avatar"
                             />
                         </Link>
-
-                        <p>
-                            {user.first} {user.last}
-                        </p>
                     </div>
                 ))}
 

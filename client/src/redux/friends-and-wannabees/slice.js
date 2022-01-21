@@ -1,9 +1,9 @@
 export default function friendsAndWannabeesReducer(
-    friendsAndWannabees = null,
+    friendsAndWannabees = [],
     action
 ) {
     if (action.type === "friends-and-wannabees/received") {
-        friendsAndWannabees = action.payload.friendsAndWannabees;
+        friendsAndWannabees = action.payload.friendships;
     } else if (action.type === "friends-and-wannabees/accept") {
         const newFriendsAndWannabees = friendsAndWannabees.map(
             (friendAndWannabee) => {
@@ -29,7 +29,7 @@ export default function friendsAndWannabeesReducer(
 export function receiveFriendsAndWannabees(friendships) {
     return {
         type: "friends-and-wannabees/received",
-        payload: friendships,
+        payload: { friendships },
     };
 }
 

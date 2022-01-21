@@ -6,7 +6,7 @@ import {
     receiveFriendsAndWannabees,
 } from "./redux/friends-and-wannabees/slice.js";
 
-export function FriendsAndWannabees() {
+export default function FriendsAndWannabees() {
     // Get access to the dispatch function
     const dispatch = useDispatch();
 
@@ -25,7 +25,6 @@ export function FriendsAndWannabees() {
         fetch(`/friends-and-wannabees.json`)
             .then((data) => data.json())
             .then((data) => {
-                console.log(data);
                 dispatch(receiveFriendsAndWannabees(data));
             })
             .catch((err) => {
@@ -40,16 +39,14 @@ export function FriendsAndWannabees() {
         // Step 1: Make a POST request to update the DB
         console.log("handleAccept", id);
 
-        fetch(`/friendhip/accept`, {
+        fetch(`/api/friendship/status/${id}`, {
             method: "POST",
+            body: JSON.stringify({ btnTxt: "Accept Friend Request" }),
         })
             .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                if (data.success) {
-                    const action = dispatch(makeFriend(id));
-                    dispatch(action);
-                }
+            .then(() => {
+                const action = dispatch(makeFriend(id));
+                dispatch(action);
             });
         // Step 2: Dispatch an action to update the Redux store
     };
@@ -58,29 +55,30 @@ export function FriendsAndWannabees() {
         // Step 1: Make a POST request to update the DB
         console.log("handleUnfriend", id);
 
-        fetch(`/friendhip/end`, {
+        fetch(`/api/friendship/status/${id}`, {
             method: "POST",
+            body: JSON.stringify({ btnTxt: "Unfriend" }),
         })
             .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                if (data.success) {
-                    const action = dispatch(makeUnfriend(id));
-                    dispatch(action);
-                }
+            .then(() => {
+                const action = dispatch(makeUnfriend(id));
+                dispatch(action);
             });
         // Step 2: Dispatch an action to update the Redux store
     };
-
-    if (!wannabees && !friends) {
-        return null;
-    }
 
     return (
         <>
             {wannabees.map((wannabee) => {
                 return (
                     <div key={wannabee.id}>
+                        <p>
+                            {wannabee.first} {wannabee.last}
+                        </p>
+                        <img
+                            src={wannabee.image_url}
+                            className="navbar-avatar"
+                        />
                         <button onClick={() => handleAccept(wannabee.id)}>
                             Accept Friendship
                         </button>
@@ -91,6 +89,10 @@ export function FriendsAndWannabees() {
             {friends.map((friend) => {
                 return (
                     <div key={friend.id}>
+                        <p>
+                            {friend.first} {friend.last}
+                        </p>
+                        <img src={friend.image_url} className="navbar-avatar" />
                         <button onClick={() => handleUnfriend(friend.id)}>
                             Unfriend
                         </button>

@@ -6,6 +6,7 @@ import { OtherProfile } from "./otherprofile";
 import { FindPeople } from "./findpeople";
 import FriendsAndWannabees from "./friends-and-wannabees";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import Chat from "./chat";
 
 export default class App extends Component {
     constructor() {
@@ -66,6 +67,7 @@ export default class App extends Component {
                     <section className="app-start">
                         <div id="logo-wrapper-app-start">MONOPOLY</div>
                         <Link to="/">Profile</Link>
+                        <Link to="/chat">Chat</Link>
                         <Link to="/friends-and-wannabees">Friends</Link>
                         <Link to="/users">Find people</Link>
                         <ProfilePic
@@ -96,6 +98,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/user/:id">
                         <OtherProfile />
+                    </Route>
+                    <Route path="/chat">
+                        <Chat />
                     </Route>
                     {this.state.uploaderIsVisible && (
                         <Uploader parentCallback={this.imageUrlCallback} />

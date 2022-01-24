@@ -35,53 +35,54 @@ export function FindPeople() {
 
     return (
         <>
-            <h1>Find People</h1>
-            {showUser && <h3>Check out our latest members!</h3>}
-            {showUser &&
-                users.map((user) => (
-                    <div key={user.id}>
-                        <Link to={`/user/${user.id}`}>
-                            <p>
-                                {user.first} {user.last}
-                            </p>
-                            <img
-                                src={user.image_url}
-                                className="navbar-avatar"
-                            />
-                        </Link>
-                    </div>
-                ))}
-            {showUser && <h3>Looking for someone?</h3>}
-            <form>
-                <input
-                    type="text"
-                    name="find"
-                    placeholder="username"
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </form>
+            <div className="findPeople-container">
+                {showUser && <h2>Check out our latest members!</h2>}
+                {showUser &&
+                    users.map((user) => (
+                        <div key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <p>
+                                    {user.first} {user.last}
+                                </p>
+                                <img
+                                    src={user.image_url}
+                                    className="navbar-avatar"
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                {showUser && <h3>Looking for someone?</h3>}
+                <form>
+                    <input
+                        type="text"
+                        name="find"
+                        placeholder="username"
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </form>
 
-            {!showUser &&
-                users &&
-                users.map((user) => (
-                    <div key={user.id}>
-                        <Link to={`/user/${user.id}`}>
-                            <p>
-                                {user.first} {user.last}
-                            </p>
-                            <img
-                                src={user.image_url}
-                                className="navbar-avatar"
-                            />
-                        </Link>
-                    </div>
-                ))}
+                {!showUser &&
+                    users &&
+                    users.map((user) => (
+                        <div key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <p>
+                                    {user.first} {user.last}
+                                </p>
+                                <img
+                                    src={user.image_url}
+                                    className="navbar-avatar"
+                                />
+                            </Link>
+                        </div>
+                    ))}
 
-            {!showUser && users.length === 0 && (
-                <div key="0">
-                    <p>No matches found</p>
-                </div>
-            )}
+                {!showUser && users.length === 0 && (
+                    <div key="0">
+                        <p>No matches found</p>
+                    </div>
+                )}
+            </div>
         </>
     );
 }

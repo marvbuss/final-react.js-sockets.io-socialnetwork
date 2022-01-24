@@ -62,6 +62,7 @@ h1 {
     display: flex;
     margin: 1rem;
     gap: 2rem;
+    border: 0.125rem solid #8fbc72;
 }
 
 #modal {
@@ -83,4 +84,30 @@ h1 {
     padding: 20px;
     border: 0.25rem solid #d7baaa;
     width: 75%;
+}
+
+.chat-container {
+    height: 30vh;
+    width: 500px;
+    background-color: #d7baaa;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+    border: 0.125rem solid #8fbc72;
+}
+
+.chat-container img {
+    float: left;
+}
+
+.chat-wrapper {
+    display: grid;
+    justify-content: center;
+}
+
+.findPeople-container {
+    display: grid;
+    justify-content: center;
+    border: 0.125rem solid #8fbc72;
+    padding: 1rem;
 }

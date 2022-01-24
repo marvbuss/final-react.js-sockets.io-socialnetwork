@@ -10,6 +10,11 @@ const { sendEmail } = require("./ses.js");
 const s3 = require("./s3.js");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -32,13 +37,17 @@ const uploader = multer({
 const s3LocationDomain =
     "https://onionxsocialnetworkxmonopoly.s3.us-east-1.amazonaws.com/";
 
-app.use(
-    cookieSession({
-        secret: "NorthKiteboarding",
-        maxAge: 1000 * 60 * 30,
-        sameSite: true,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: "NorthKiteboarding",
+    maxAge: 1000 * 60 * 30,
+    sameSite: true,
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(compression());
 
@@ -285,6 +294,35 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            socket.emit("chatMessages", rows);
+        })
+        .catch((err) => {
+            console.log("err getting last 10 messages: ", err);
+        });
+
+    socket.on("newChatMessage", (message) => {
+        db.addChatMessage(socket.request.session.userId, message)
+            .then(() => {
+                db.getUserInfoById(socket.request.session.userId).then(
+                    ({ rows }) => {
+                        let merged = { message, ...rows[0] };
+                        io.emit("chatMessage", merged);
+                    }
+                );
+            })
+            .catch((err) => {
+                console.log("err inserting newMessage: ", err);
+            });
+    });
 });

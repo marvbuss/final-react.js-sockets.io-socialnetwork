@@ -100,6 +100,10 @@ h1 {
     float: left;
 }
 
+.chat-container p {
+    color: white;
+}
+
 .chat-wrapper {
     display: grid;
     justify-content: center;

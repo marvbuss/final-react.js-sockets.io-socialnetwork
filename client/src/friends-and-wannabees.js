@@ -69,36 +69,50 @@ export default function FriendsAndWannabees() {
 
     return (
         <>
-            {wannabees.map((wannabee) => {
-                return (
-                    <div key={wannabee.id}>
-                        <p>
-                            {wannabee.first} {wannabee.last}
-                        </p>
-                        <img
-                            src={wannabee.image_url}
-                            className="navbar-avatar"
-                        />
-                        <button onClick={() => handleAccept(wannabee.id)}>
-                            Accept Friendship
-                        </button>
-                    </div>
-                );
-            })}
-
-            {friends.map((friend) => {
-                return (
-                    <div key={friend.id}>
-                        <p>
-                            {friend.first} {friend.last}
-                        </p>
-                        <img src={friend.image_url} className="navbar-avatar" />
-                        <button onClick={() => handleUnfriend(friend.id)}>
-                            Unfriend
-                        </button>
-                    </div>
-                );
-            })}
+            <div className="friends-and-wannabees-container">
+                <h1>Requests:</h1>
+                <div className="wannabees-container">
+                    {wannabees.map((wannabee) => {
+                        return (
+                            <div className="wannabee-list" key={wannabee.id}>
+                                <h2>
+                                    {wannabee.first} {wannabee.last}
+                                </h2>
+                                <img
+                                    src={wannabee.image_url}
+                                    className="friends-and-wannabees-avatar"
+                                />
+                                <button
+                                    onClick={() => handleAccept(wannabee.id)}
+                                >
+                                    Accept Friendship
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
+                <h1>Friends:</h1>
+                <div className="friends-container">
+                    {friends.map((friend) => {
+                        return (
+                            <div className="friend-list" key={friend.id}>
+                                <h2>
+                                    {friend.first} {friend.last}
+                                </h2>
+                                <img
+                                    src={friend.image_url}
+                                    className="friends-and-wannabees-avatar"
+                                />
+                                <button
+                                    onClick={() => handleUnfriend(friend.id)}
+                                >
+                                    Unfriend
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </>
     );
 }

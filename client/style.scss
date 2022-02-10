@@ -6,6 +6,7 @@
 @import "./bioeditor";
 @import "./findpeople";
 @import "./chat";
+@import "./friends-and-wannabees";
 
 * {
     box-sizing: border-box;
@@ -42,27 +43,4 @@ form {
 
 #welcome {
     text-align: center;
-}
-
-.chat-container {
-    height: 30vh;
-    width: 500px;
-    background-color: $fourthColor;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    border: 0.125rem solid $fourthColor;
-}
-
-.chat-container img {
-    float: left;
-}
-
-.chat-container p {
-    color: $fifthColor;
-}
-
-.chat-wrapper {
-    display: grid;
-    justify-content: center;
 }

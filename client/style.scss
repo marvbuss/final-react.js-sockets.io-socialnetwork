@@ -3,6 +3,8 @@
 @import "./app";
 @import "./profilepic";
 @import "./uploader";
+@import "./bioeditor";
+@import "./findpeople";
 
 * {
     box-sizing: border-box;
@@ -53,11 +55,4 @@ a {
 .chat-wrapper {
     display: grid;
     justify-content: center;
-}
-
-.findPeople-container {
-    display: grid;
-    justify-content: center;
-    border: 0.125rem solid $secondaryColor;
-    padding: 1rem;
 }

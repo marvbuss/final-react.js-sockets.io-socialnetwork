@@ -19,6 +19,9 @@
     padding: 20px;
     border: 0.25rem solid $fifthColor;
     width: 75%;
+    button {
+        cursor: pointer;
+    }
 }
 
 #closeModal {
@@ -27,4 +30,5 @@
     top: 0;
     margin: 1rem;
     font-size: 1.5rem;
+    cursor: pointer;
 }

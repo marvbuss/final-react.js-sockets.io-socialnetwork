@@ -103,7 +103,10 @@ export default class App extends Component {
                         <Chat />
                     </Route>
                     {this.state.uploaderIsVisible && (
-                        <Uploader parentCallback={this.imageUrlCallback} />
+                        <Uploader
+                            parentCallback={this.imageUrlCallback}
+                            toggleFunc={this.toggleUploader}
+                        />
                     )}
                 </BrowserRouter>
             </>

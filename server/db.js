@@ -55,7 +55,7 @@ module.exports.getMatchingUsersList = (val) => {
 };
 
 module.exports.showLatestUsers = () => {
-    const q = `SELECT * FROM users ORDER BY created_at DESC LIMIT 3`;
+    const q = `SELECT * FROM users ORDER BY created_at DESC LIMIT 12`;
     return db.query(q);
 };
 

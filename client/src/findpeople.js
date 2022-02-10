@@ -35,23 +35,9 @@ export function FindPeople() {
 
     return (
         <>
-            <div className="findPeople-container">
-                {showUser && <h2>Check out our latest members!</h2>}
-                {showUser &&
-                    users.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <p>
-                                    {user.first} {user.last}
-                                </p>
-                                <img
-                                    src={user.image_url}
-                                    className="navbar-avatar"
-                                />
-                            </Link>
-                        </div>
-                    ))}
-                {showUser && <h3>Looking for someone?</h3>}
+            <div className="findpeople">
+                {showUser && <h1>Check out our latest members!</h1>}
+                {showUser && <h2>Looking for someone?</h2>}
                 <form>
                     <input
                         type="text"
@@ -60,18 +46,20 @@ export function FindPeople() {
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </form>
+            </div>
 
+            <div className="findpeople-container">
                 {!showUser &&
                     users &&
                     users.map((user) => (
-                        <div key={user.id}>
+                        <div className="user-list" key={user.id}>
                             <Link to={`/user/${user.id}`}>
                                 <p>
                                     {user.first} {user.last}
                                 </p>
                                 <img
                                     src={user.image_url}
-                                    className="navbar-avatar"
+                                    className="findpeople-avatar"
                                 />
                             </Link>
                         </div>
@@ -82,6 +70,20 @@ export function FindPeople() {
                         <p>No matches found</p>
                     </div>
                 )}
+                {showUser &&
+                    users.map((user) => (
+                        <div className="user-list" key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <p>
+                                    {user.first} {user.last}
+                                </p>
+                                <img
+                                    src={user.image_url}
+                                    className="findpeople-avatar"
+                                />
+                            </Link>
+                        </div>
+                    ))}
             </div>
         </>
     );

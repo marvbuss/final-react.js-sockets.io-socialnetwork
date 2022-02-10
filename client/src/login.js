@@ -11,19 +11,11 @@ export class Login extends Component {
     }
     componentDidMount() {
         console.log("Login just mounted");
-        console.log(this.state);
     }
     handleChange({ target }) {
-        console.log("input value changed :D");
-        console.log("value typed:", target.value);
-        console.log("name of target", target.name);
-        // to update state we use this.setState and pass to it an object with our state changes
-        this.setState(
-            {
-                [target.name]: target.value,
-            },
-            () => console.log("handleChange update done:", this.state)
-        );
+        this.setState({
+            [target.name]: target.value,
+        });
     }
     handleSubmit(e) {
         e.preventDefault();

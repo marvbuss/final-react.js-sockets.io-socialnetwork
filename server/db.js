@@ -88,7 +88,7 @@ module.exports.checkFriendshipStatus = (recipient_id, sender_id) => {
 };
 
 module.exports.updateFriendshipStatus = (recipient_id, sender_id) => {
-    const q = `UPDATE friendships SET accepted = true WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1) RETURNING sender_id`;
+    const q = `UPDATE friendships SET accepted = true WHERE (recipient_id = $1 AND sender_id = $2) RETURNING sender_id`;
     const params = [recipient_id, sender_id];
     return db.query(q, params);
 };

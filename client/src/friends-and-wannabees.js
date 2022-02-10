@@ -30,18 +30,17 @@ export default function FriendsAndWannabees() {
             .catch((err) => {
                 console.log("err", err);
             });
-
-        // STEP 1: Make GET request to fetch friends and wannabees
-        // STEP 2: dispatch action to populate the redux state
     }, []);
 
     const handleAccept = (id) => {
-        // Step 1: Make a POST request to update the DB
         console.log("handleAccept", id);
 
         fetch(`/api/friendship/status/${id}`, {
             method: "POST",
-            body: JSON.stringify({ btnTxt: "Accept Friend Request" }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ btnText: "Accept Friend Request" }),
         })
             .then((res) => res.json())
             .then(() => {
@@ -52,12 +51,14 @@ export default function FriendsAndWannabees() {
     };
 
     const handleUnfriend = (id) => {
-        // Step 1: Make a POST request to update the DB
         console.log("handleUnfriend", id);
 
         fetch(`/api/friendship/status/${id}`, {
             method: "POST",
-            body: JSON.stringify({ btnTxt: "Unfriend" }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ btnText: "Unfriend" }),
         })
             .then((res) => res.json())
             .then(() => {

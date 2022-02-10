@@ -18,9 +18,10 @@ export default function friendsAndWannabeesReducer(
         );
         return newFriendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/end") {
-        friendsAndWannabees = friendsAndWannabees.filter(
+        const newFriendsAndWannabees = friendsAndWannabees.filter(
             (friendAndWannabee) => friendAndWannabee.id !== action.payload.id
         );
+        return newFriendsAndWannabees;
     }
 
     return friendsAndWannabees;

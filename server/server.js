@@ -196,6 +196,9 @@ app.get(`/api/friendship/:id`, function (req, res) {
 app.post(`/api/friendship/status/:id`, (req, res) => {
     const loggedInId = req.session.userId;
     const viewedId = req.params.id;
+    console.log("loggedInId:", loggedInId, "viewedId:", viewedId);
+    console.log(req.body);
+    console.log(req.body.btnText);
 
     if (req.body.btnText === "Send Friend Request") {
         db.startFriendship(loggedInId, viewedId)

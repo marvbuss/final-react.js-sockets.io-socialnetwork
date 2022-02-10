@@ -1,117 +1,153 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #bfdbae;
-    font-family: Monopoly;
-}
-
-button {
-    background-color: #d7baaa;
-    color: white;
-}
-
-h1 {
-    font-size: 5rem;
-}
-
-#welcome {
-    text-align: center;
+#logo-wrapper {
+  font-size: 10rem;
+  background-color: #012e40;
+  border: 1rem solid #f2e3d5;
+  color: #f2e3d5;
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem;
 }
 
 .app-start {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#logo-wrapper {
-    font-size: 10rem;
-    background-color: #c70000;
-    border: 1rem solid white;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    margin: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #logo-wrapper-app-start {
-    height: 100px;
-    font-size: 5rem;
-    background-color: #c70000;
-    color: white;
-    padding: 0.5rem;
-    border: 0.5rem solid white;
-    text-align: center;
-    margin: 0.5rem;
-}
-
-.navbar-avatar {
-    height: 100px;
-    border: 0.125rem solid #c70000;
-    margin: 0.5rem;
-}
-
-.profile-avatar {
-    height: 200px;
-    border: 0.125rem solid #c70000;
+  font-size: 5rem;
+  background-color: #012e40;
+  color: #f2e3d5;
+  padding: 0.5rem;
+  border: 0.5rem solid #f2e3d5;
+  text-align: center;
+  margin: 0.5rem;
 }
 
 .profile-section {
-    display: flex;
-    margin: 1rem;
-    gap: 2rem;
-    border: 0.125rem solid #8fbc72;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem;
+  gap: 2rem;
+}
+
+.navbar-avatar {
+  height: 100px;
+  border: 0.125rem solid #012e40;
+  margin: 1rem;
+}
+
+.profile-avatar {
+  height: 200px;
+  border: 0.125rem solid #012e40;
+  margin: 1rem;
 }
 
 #modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #191919;
 }
 
 #modal-container {
-    background-color: white;
-    text-align: center;
-    margin: 15% auto;
-    padding: 20px;
-    border: 0.25rem solid #d7baaa;
-    width: 75%;
+  position: relative;
+  background-color: #f2e3d5;
+  text-align: center;
+  margin: 15% auto;
+  padding: 20px;
+  border: 0.25rem solid #f2e3d5;
+  width: 75%;
+}
+
+#closeModal {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: #012e40;
+  font-family: "Poppins", sans-serif;
+  color: #f2e3d5;
+}
+
+button {
+  background-color: #191919;
+  color: #f2e3d5;
+  border: 1px solid #191919;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+a {
+  color: #f2e3d5;
+}
+
+#welcome {
+  text-align: center;
 }
 
 .chat-container {
-    height: 30vh;
-    width: 500px;
-    background-color: #d7baaa;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    border: 0.125rem solid #8fbc72;
+  height: 30vh;
+  width: 500px;
+  background-color: #191919;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  overflow-y: scroll;
+  border: 0.125rem solid #191919;
 }
 
 .chat-container img {
-    float: left;
+  float: left;
 }
 
 .chat-container p {
-    color: white;
+  color: #f2e3d5;
 }
 
 .chat-wrapper {
-    display: grid;
-    justify-content: center;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .findPeople-container {
-    display: grid;
-    justify-content: center;
-    border: 0.125rem solid #8fbc72;
-    padding: 1rem;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 0.125rem solid #024959;
+  padding: 1rem;
 }
+/*# sourceMappingURL=style.css.map */

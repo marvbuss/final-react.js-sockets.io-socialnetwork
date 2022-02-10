@@ -8,11 +8,15 @@ export default function ProfilePic({
     imageUrl = imageUrl || "default.png";
 
     return (
-        <img
-            onClick={() => toggleFunc()}
-            src={imageUrl}
-            alt={`${first} ${last}`}
-            className={cssClassName}
-        />
+        <>
+            <div>
+                <img
+                    onClick={() => toggleFunc()}
+                    src={imageUrl}
+                    alt={`${first} ${last}`}
+                    className={cssClassName}
+                />
+            </div>
+        </>
     );
 }

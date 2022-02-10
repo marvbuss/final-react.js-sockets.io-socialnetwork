@@ -1,0 +1,63 @@
+@import "./variables";
+@import "./logo";
+@import "./app";
+@import "./profilepic";
+@import "./uploader";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $primaryColor;
+    font-family: "Poppins", sans-serif;
+    color: $fifthColor;
+}
+
+button {
+    background-color: $fourthColor;
+    color: $fifthColor;
+    border: 1px solid $fourthColor;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+a {
+    color: $fifthColor;
+}
+
+#welcome {
+    text-align: center;
+}
+
+.chat-container {
+    height: 30vh;
+    width: 500px;
+    background-color: $fourthColor;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+    border: 0.125rem solid $fourthColor;
+}
+
+.chat-container img {
+    float: left;
+}
+
+.chat-container p {
+    color: $fifthColor;
+}
+
+.chat-wrapper {
+    display: grid;
+    justify-content: center;
+}
+
+.findPeople-container {
+    display: grid;
+    justify-content: center;
+    border: 0.125rem solid $secondaryColor;
+    padding: 1rem;
+}

@@ -1,0 +1,21 @@
+.app-start {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo-wrapper-app-start {
+    font-size: 5rem;
+    background-color: $primaryColor;
+    color: $fifthColor;
+    padding: 0.5rem;
+    border: 0.5rem solid $fifthColor;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+.profile-section {
+    display: flex;
+    margin: 1rem;
+    gap: 2rem;
+}

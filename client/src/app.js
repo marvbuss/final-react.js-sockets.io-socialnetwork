@@ -65,7 +65,7 @@ export default class App extends Component {
             <>
                 <BrowserRouter>
                     <section className="app-start">
-                        <div id="logo-wrapper-app-start">MONOPOLY</div>
+                        <div id="logo-wrapper-app-start">ANKER</div>
                         <Link to="/">Profile</Link>
                         <Link to="/chat">Chat</Link>
                         <Link to="/friends-and-wannabees">Friends</Link>

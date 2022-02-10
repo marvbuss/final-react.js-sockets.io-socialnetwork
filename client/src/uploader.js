@@ -37,6 +37,7 @@ export default class uploader extends Component {
             <>
                 <div id="modal">
                     <div id="modal-container">
+                        <div id="closeModal">X</div>
                         <h1>Change Profile Image</h1>
                         <form>
                             <input

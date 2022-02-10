@@ -12,11 +12,15 @@ export default function Welcome() {
                 <div>
                     <Route exact path="/">
                         <Registration />
-                        <Link to="/login">Click here to Log in!</Link>
+                        <div>
+                            <Link to="/login">Click here to Log in!</Link>
+                        </div>
                     </Route>
                     <Route path="/login">
                         <Login />
-                        <Link to="/">Click here to Register!</Link>
+                        <div>
+                            <Link to="/"> Click here to Register!</Link>
+                        </div>
                     </Route>
                     <Route path="/reset">
                         <ResetPassword />

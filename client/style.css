@@ -160,6 +160,9 @@ button {
   background-color: #191919;
   color: #f2e3d5;
   border: 1px solid #191919;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem;
 }
 
 h1 {
@@ -168,6 +171,17 @@ h1 {
 
 a {
   color: #f2e3d5;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 0.5rem;
+          column-gap: 0.5rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #welcome {

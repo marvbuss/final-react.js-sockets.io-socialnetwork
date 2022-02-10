@@ -5,6 +5,7 @@
 @import "./uploader";
 @import "./bioeditor";
 @import "./findpeople";
+@import "./chat";
 
 * {
     box-sizing: border-box;
@@ -20,6 +21,9 @@ button {
     background-color: $fourthColor;
     color: $fifthColor;
     border: 1px solid $fourthColor;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
 }
 
 h1 {
@@ -28,6 +32,12 @@ h1 {
 
 a {
     color: $fifthColor;
+}
+
+form {
+    display: flex;
+    column-gap: 0.5rem;
+    justify-content: center;
 }
 
 #welcome {

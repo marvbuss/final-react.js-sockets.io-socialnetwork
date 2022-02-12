@@ -1,12 +1,12 @@
 import { Component } from "react";
-import ProfilePic from "./profilepic";
-import Uploader from "./uploader";
-import Profile from "./profile";
-import { OtherProfile } from "./otherprofile";
-import { FindPeople } from "./findpeople";
-import FriendsAndWannabees from "./friends-and-wannabees";
+import ProfilePic from "../profile/profilepic";
+import Uploader from "../uploader/uploader";
+import Profile from "../profile/profile";
+import { OtherProfile } from "../profile/otherprofile";
+import { FindPeople } from "../findpeople/findpeople";
+import FriendsAndWannabees from "../friends-and-wannabees/friends-and-wannabees";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import Chat from "./chat";
+import Chat from "../chat/chat";
 
 export default class App extends Component {
     constructor() {

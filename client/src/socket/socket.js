@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import {
     chatMessagesReceived,
     chatMessageReceived,
-} from "./redux/messages/slice.js";
+} from "../redux/messages/slice.js";
 
 export let socket;
 

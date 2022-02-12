@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router";
 import { useState, useEffect } from "react";
-import { FriendButton } from "./friendbutton";
+import { FriendButton } from "../friends-and-wannabees/friendbutton";
 
 export function OtherProfile() {
     const { id } = useParams();

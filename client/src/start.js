@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom";
-import Welcome from "./welcome";
-import App from "./app";
+import Welcome from "./components/welcome/welcome";
+import App from "./components/app/app";
 import { createStore, applyMiddleware } from "redux";
 import * as immutableState from "redux-immutable-state-invariant";
 import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./redux/reducer.js";
 import { Provider } from "react-redux";
-import { init } from "./socket";
+import { init } from "./socket/socket";
 
 const store = createStore(
     reducer,

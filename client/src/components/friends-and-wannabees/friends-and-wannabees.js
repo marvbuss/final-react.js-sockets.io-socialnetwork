@@ -4,7 +4,7 @@ import {
     makeFriend,
     makeUnfriend,
     receiveFriendsAndWannabees,
-} from "./redux/friends-and-wannabees/slice.js";
+} from "../../redux/friends-and-wannabees/slice.js";
 
 export default function FriendsAndWannabees() {
     // Get access to the dispatch function
